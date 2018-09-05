@@ -16,6 +16,18 @@
     return self;
 }
 
+- (instancetype)largePepperoni{
+    return [[Pizza alloc] init:LARGE : [NSArray arrayWithObjects:@"pepperoni", nil] ];
+}
+
+- (instancetype)margherita{
+    return [[Pizza alloc] init:LARGE : [NSArray arrayWithObjects:@"oregano", nil] ];
+}
+
+- (instancetype)canadian{
+    return [[Pizza alloc] init:LARGE : [NSArray arrayWithObjects:@"bacon", @"pepperoni", @"mushrooms", nil] ];
+}
+
 - (NSString *) info{
     NSString *toppings = [self.toppings componentsJoinedByString:@", "];
     return [NSString stringWithFormat:@"Pizza size %d [%@]" , self.size, toppings];

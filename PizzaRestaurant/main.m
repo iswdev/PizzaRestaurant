@@ -12,20 +12,6 @@
 #import "Pizza.h"
 
 
-PizzaSize mapSize(NSString *size){
-    if ([size isEqualToString:@"small"]){
-        return SMALL;
-    }
-    if ([size isEqualToString:@"medium"]){
-        return MEDIUM;
-    }
-    if ([size isEqualToString:@"large"]){
-        return LARGE;
-    }
-    return 0;
-}
-
-
 int main(int argc, const char * argv[])
 {
 
@@ -47,16 +33,7 @@ int main(int argc, const char * argv[])
             
             NSLog(@"Input was %@", inputString);
             
-            // Take the first word of the command as the size, and the rest as the toppings
-            NSArray *commandWords = [inputString componentsSeparatedByString:@" "];
-            
-            // parse input with size and toppings
-            int parts = (int)[commandWords count];
-            PizzaSize size = mapSize(commandWords[0]);
-            NSArray *toppings = [commandWords subarrayWithRange:NSMakeRange(1, parts - 1)];
-            
-            // Init a pizza
-            Pizza *pizza = [[Pizza alloc] init:size :toppings];
+            Pizza *pizza = [restaurantKitchen makePizzaFromCommand:inputString];
             NSLog(@"%@", [pizza info]);
             
             

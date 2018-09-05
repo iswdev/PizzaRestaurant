@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    SMALL,
-    MEDIUM,
-    LARGE
+    SMALL = 1,
+    MEDIUM = 2,
+    LARGE = 3
 } PizzaSize;
 
 
@@ -22,6 +22,12 @@ typedef enum {
 @property NSArray<NSString *> *toppings;
 
 - (instancetype)init : (PizzaSize) size : (NSArray *) toppings;
+
+- (instancetype)largePepperoni;
+
+- (instancetype)margherita;
+
+- (instancetype)canadian;
 
 - (NSString *) info;
 
