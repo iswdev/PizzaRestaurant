@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Pizza.h"
 
+
 @interface Kitchen : NSObject
+
+@property id delegate;
 
 - (Pizza *)makePizzaFromCommand:(NSString *)command;
 

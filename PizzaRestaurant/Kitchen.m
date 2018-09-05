@@ -7,6 +7,7 @@
 //
 
 #import "Kitchen.h"
+#import "KitchenDelegate.h"
 
 @implementation Kitchen
 
@@ -40,20 +41,47 @@ PizzaSize mapSize(NSString *size){
     PizzaSize size = mapSize(commandWords[0]);
     NSArray *toppings = [commandWords subarrayWithRange:NSMakeRange(1, parts - 1)];
     
+    Pizza *created = nil;
+    
     if (size == 0){
+        //checking special pizza
         if ([command isEqualToString:@"pepperoni"]){
-            return [[Pizza alloc] largePepperoni];
+            created = [[Pizza alloc] largePepperoni];
         }
         if ([command isEqualToString:@"margherita"]){
-            return [[Pizza alloc] margherita];
+            created = [[Pizza alloc] margherita];
         }
         if ([command isEqualToString:@"canadian"]){
-            return [[Pizza alloc] canadian];
+            created = [[Pizza alloc] canadian];
+        }
+    }else{
+        //standard pizza with toppings
+        created = [self makePizzaWithSize:size toppings:toppings];
+    }
+    
+    
+    // checking delegates
+    if ([self.delegate conformsToProtocol:@protocol(KitchenDelegate)]) {
+        // delegate can create a pizza
+        BOOL canCreate = [self.delegate kitchen:self shouldMakePizzaOfSize:created.size andToppings:created.toppings];
+        if (!canCreate){
+            return nil;
+        }
+        
+        // delegate can upgrade a pizza
+        BOOL canUpgrade = [self.delegate kitchenShouldUpgradeOrder:self];
+        if (canUpgrade){
+            created.size = LARGE;
+        }
+        
+        // delegate can receive a call to kitchenDidMakePizza
+        SEL optSelector = NSSelectorFromString(@"kitchenDidMakePizza");
+        if (canCreate && ([self.delegate respondsToSelector:optSelector]) ){
+            [self.delegate kitchenDidMakePizza:created];
         }
     }
     
-    // Init a pizza
-    return [self makePizzaWithSize:size toppings:toppings];
+    return created;
 }
 
 @end
