@@ -62,20 +62,25 @@ PizzaSize mapSize(NSString *size){
     
     // checking delegates
     if ([self.delegate conformsToProtocol:@protocol(KitchenDelegate)]) {
+        NSLog(@"Using a delegate manager...");
+        
         // delegate can create a pizza
         BOOL canCreate = [self.delegate kitchen:self shouldMakePizzaOfSize:created.size andToppings:created.toppings];
         if (!canCreate){
+            NSLog(@"Delegate cannot create your pizza");
             return nil;
         }
         
         // delegate can upgrade a pizza
         BOOL canUpgrade = [self.delegate kitchenShouldUpgradeOrder:self];
-        if (canUpgrade){
+        if (canUpgrade && created.size != LARGE){
+            NSLog(@"Delegate upgraded your pizza to LARGE");
             created.size = LARGE;
         }
         
         // delegate can receive a call to kitchenDidMakePizza
-        SEL optSelector = NSSelectorFromString(@"kitchenDidMakePizza");
+        SEL optSelector = NSSelectorFromString(@"kitchenDidMakePizza:");
+        // SEL optSelector = @selector(kitchenDidMakePizza:);
         if (canCreate && ([self.delegate respondsToSelector:optSelector]) ){
             [self.delegate kitchenDidMakePizza:created];
         }

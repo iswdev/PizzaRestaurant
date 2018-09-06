@@ -11,7 +11,6 @@
 
 @interface Manager1 : NSObject <KitchenDelegate>
 
-- (BOOL)kitchen:(Kitchen *)kitchen shouldMakePizzaOfSize:(PizzaSize)size andToppings:(NSArray *)toppings;
-- (BOOL)kitchenShouldUpgradeOrder:(Kitchen *)kitchen;
+
 
 @end

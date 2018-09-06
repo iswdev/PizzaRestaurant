@@ -19,4 +19,8 @@
     return TRUE;
 }
 
+- (void)kitchenDidMakePizza:(Pizza *)pizza{
+    NSLog(@"Your pizza is ready. Thanks.");
+}
+
 @end
