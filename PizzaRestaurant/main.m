@@ -13,6 +13,8 @@
 #import "Manager1.h"
 #import "Manager2.h"
 
+void help(void);
+
 
 int main(int argc, const char * argv[])
 {
@@ -20,6 +22,8 @@ int main(int argc, const char * argv[])
     @autoreleasepool {
         
         NSLog(@"Please pick your pizza size and toppings:");
+        
+        help();
         
         Kitchen *restaurantKitchen = [Kitchen new];
         Manager1 *manager1;
@@ -30,13 +34,6 @@ int main(int argc, const char * argv[])
         while (TRUE) {
          
             NSLog(@" ");
-            NSLog(@"To ask for pizza    : size|keyword [topping1 topping2 ... toppingN]");
-            NSLog(@"Sizes available     : small|medium|large");
-            NSLog(@"To change manager   : manager1|manager2|nomanager");
-            NSLog(@"To show deliveries  : deliveryinfo");
-            NSLog(@"Quick pizza keywords: \n pepperoni (large pepperoni), \n canadian (large bacon pepperoni mushroom)");
-            
-
             
             // prompt will show the current manager delegate (null when none selected)
             NSLog(@"[Manager: %@] > ",[restaurantKitchen.delegate className]);
@@ -78,6 +75,11 @@ int main(int argc, const char * argv[])
                 continue;
             }
             
+            if ([inputString isEqualToString:@"?"]){
+                help();
+                continue;
+            }
+            
             Pizza *pizza = [restaurantKitchen makePizzaFromCommand:inputString];
             if (pizza == nil){
                 NSLog(@"Invalid pizza request!");
@@ -89,3 +91,12 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
+
+void help(void){
+    NSLog(@"To ask for pizza    : size|keyword [topping1 topping2 ... toppingN]");
+    NSLog(@"Sizes available     : small|medium|large");
+    NSLog(@"To change manager   : manager1|manager2|nomanager");
+    NSLog(@"To show deliveries  : deliveryinfo");
+    NSLog(@"Quick pizza keywords: \n pepperoni (large pepperoni), \n canadian (large bacon pepperoni mushroom)");
+    NSLog(@"Type ? for help)");
+}
