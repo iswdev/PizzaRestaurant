@@ -21,6 +21,9 @@
 
 - (void)kitchenDidMakePizza:(Pizza *)pizza{
     NSLog(@"Your pizza is ready. Thanks.");
+    if (self.deliveryService != nil){
+        [self.deliveryService deliverPizza:pizza];
+    }
 }
 
 @end

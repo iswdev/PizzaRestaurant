@@ -61,7 +61,7 @@ PizzaSize mapSize(NSString *size){
     
     
     // checking delegates
-    if ([self.delegate conformsToProtocol:@protocol(KitchenDelegate)]) {
+    if (created != nil && [self.delegate conformsToProtocol:@protocol(KitchenDelegate)]) {
         NSLog(@"Using a delegate manager...");
         
         // delegate can create a pizza

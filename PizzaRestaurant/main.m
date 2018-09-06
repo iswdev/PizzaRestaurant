@@ -24,6 +24,8 @@ int main(int argc, const char * argv[])
         Kitchen *restaurantKitchen = [Kitchen new];
         Manager1 *manager1;
         Manager2 *manager2;
+        DeliveryService *deliveryService = [DeliveryService new];
+        deliveryService.deliveryCar = [DeliveryCar new];
         
         while (TRUE) {
          
@@ -31,6 +33,7 @@ int main(int argc, const char * argv[])
             NSLog(@"To ask for pizza    : size|keyword [topping1 topping2 ... toppingN]");
             NSLog(@"Sizes available     : small|medium|large");
             NSLog(@"To change manager   : manager1|manager2|nomanager");
+            NSLog(@"To show deliveries  : deliveryinfo");
             NSLog(@"Quick pizza keywords: \n pepperoni (large pepperoni), \n canadian (large bacon pepperoni mushroom)");
             
 
@@ -58,6 +61,7 @@ int main(int argc, const char * argv[])
                 NSLog(@"Selecting manager2");
                 if (manager2 == nil){
                     manager2 = [Manager2 new];
+                    manager2.deliveryService = deliveryService;
                 }
                 restaurantKitchen.delegate = manager2;
                 continue;
@@ -69,11 +73,14 @@ int main(int argc, const char * argv[])
                 continue;
             }
             
+            if ([inputString isEqualToString:@"deliveryinfo"]){
+                NSLog(@"Delivery service info: \n%@", [[deliveryService listDeliveries] componentsJoinedByString:@"\n"]);
+                continue;
+            }
+            
             Pizza *pizza = [restaurantKitchen makePizzaFromCommand:inputString];
             if (pizza == nil){
-                NSLog(@"Invalid request!");
-            }else{
-                NSLog(@"%@", [pizza info]);
+                NSLog(@"Invalid pizza request!");
             }
 
         }

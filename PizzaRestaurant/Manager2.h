@@ -11,6 +11,6 @@
 
 @interface Manager2 : NSObject <KitchenDelegate>
 
-
+@property DeliveryService *deliveryService;
 
 @end
