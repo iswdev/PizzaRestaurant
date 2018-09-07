@@ -36,7 +36,7 @@ int main(int argc, const char * argv[])
             NSLog(@" ");
             
             // prompt will show the current manager delegate (null when none selected)
-            NSLog(@"[Manager: %@] > ",[restaurantKitchen.delegate className]);
+            NSLog(@"[Manager: %@] > ",[restaurantKitchen currentManager]);
             char str[100];
             fgets (str, 100, stdin);
             
@@ -98,5 +98,8 @@ void help(void){
     NSLog(@"To change manager   : manager1|manager2|nomanager");
     NSLog(@"To show deliveries  : deliveryinfo");
     NSLog(@"Quick pizza keywords: \n pepperoni (large pepperoni), \n canadian (large bacon pepperoni mushroom)");
+    
+    NSLog(@"Example             : madium pepperoni bacon");
+    
     NSLog(@"Type ? for help)");
 }

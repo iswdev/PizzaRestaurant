@@ -18,5 +18,6 @@
 
 - (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings;
 
+- (NSString *)currentManager;
 
 @end

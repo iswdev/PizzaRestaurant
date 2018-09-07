@@ -30,7 +30,33 @@
 
 - (NSString *) info{
     NSString *toppings = [self.toppings componentsJoinedByString:@", "];
-    return [NSString stringWithFormat:@"Pizza size %d [%@]" , self.size, toppings];
+    return [NSString stringWithFormat:@"Pizza size %@ [%@]" , [Pizza sizeToString:self.size], toppings];
+}
+
++ (PizzaSize) stringToSize:(NSString *)size{
+    if ([size isEqualToString:@"small"]){
+        return SMALL;
+    }
+    if ([size isEqualToString:@"medium"]){
+        return MEDIUM;
+    }
+    if ([size isEqualToString:@"large"]){
+        return LARGE;
+    }
+    return 0;
+}
+
++ (NSString *) sizeToString:(int)size{
+    if (size == SMALL){
+        return @"small";
+    }
+    if (size == MEDIUM){
+        return @"medium";
+    }
+    if (size == LARGE){
+        return @"large";
+    }
+    return 0;
 }
 
 @end

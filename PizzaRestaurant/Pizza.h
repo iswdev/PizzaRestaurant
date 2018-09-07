@@ -29,6 +29,10 @@ typedef enum {
 
 - (instancetype)canadian;
 
++ (PizzaSize) stringToSize:(NSString *)size;
+
++ (NSString *) sizeToString:(int)size;
+
 - (NSString *) info;
 
 @end

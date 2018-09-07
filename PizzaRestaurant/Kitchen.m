@@ -11,19 +11,6 @@
 
 @implementation Kitchen
 
-PizzaSize mapSize(NSString *size){
-    if ([size isEqualToString:@"small"]){
-        return SMALL;
-    }
-    if ([size isEqualToString:@"medium"]){
-        return MEDIUM;
-    }
-    if ([size isEqualToString:@"large"]){
-        return LARGE;
-    }
-    return 0;
-}
-
 
 - (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings
 {
@@ -38,7 +25,7 @@ PizzaSize mapSize(NSString *size){
     
     // parse input with size and toppings
     int parts = (int)[commandWords count];
-    PizzaSize size = mapSize(commandWords[0]);
+    PizzaSize size = [Pizza stringToSize:(commandWords[0])];
     NSArray *toppings = [commandWords subarrayWithRange:NSMakeRange(1, parts - 1)];
     
     Pizza *created = nil;
@@ -88,5 +75,15 @@ PizzaSize mapSize(NSString *size){
     
     return created;
 }
+
+
+- (NSString *)currentManager{
+    if (self.delegate == nil){
+        return @"No manager";
+    }else{
+        return [self.delegate className];
+    }
+}
+
 
 @end
